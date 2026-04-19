@@ -1,21 +1,20 @@
 import { NavLink } from 'react-router-dom'
 import s from './post-card.module.scss'
+import gravatar from 'gravatar'
+import { getGradient } from '../../helpers/getGradient';
 
 export const Card = ({post}) => {
-  return (
-    <NavLink className={s.card} to={`/post/${post?.id}`}>
-      <p className={s.title}>{post?.title}</p>
-      <p className={s.body}>{post?.body}</p>
-    </NavLink>
-  )
-}
+	const tagList = ['Health & Nutrition', 'Sustainability', 'Cultural Insights', 'Adventure', 'Wellness']
+	const tag = tagList[(post?.id ?? 0) % tagList.length]
 
-export const PostCard = ({comm}) => {
-  return (
-    <NavLink className={s.postcard}>
-      <p className={s.posttitle}>{comm?.name}</p>
-      <p className={s.postbody}>{comm?.body}</p>
-      <div className={s.postemail}>{comm?.email}</div>
-    </NavLink>
-  )
+	return (
+		<NavLink className={s.card} to={`/post/${post?.id}`}>
+			<div className={s.image} style={{
+				background: getGradient(post?.id)
+			}}></div>
+			<span className={s.tag}>{tag}</span>
+			<h6 className={s.title}>{post?.title}</h6>
+			<p className={s.body}>{post?.body}</p>
+		</NavLink>
+	)
 }

@@ -1,7 +1,8 @@
 import React from 'react'
 
+
 export const Button = ({label, onClick}) => {
-  return (
-    <button onClick={() => onClick('1234')}>{label}</button>
-  )
+	return (
+		<button onClick={() => onClick('asdfasdf')} className={label ? 'active': 'disa'}>{label}</button>
+	)
 }
