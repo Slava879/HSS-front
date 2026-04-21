@@ -5,7 +5,7 @@ import {usePosts} from '../hooks/usePosts'
 import {Paginator} from '../components/paginator'
 import { useState } from 'react'
 
-const MIN_PAGE = 1
+const MIN_PAGE = 1 // local storeg
 const ITEMS_COUNT = 10
 
 export const HomePage = () => {
@@ -15,8 +15,6 @@ export const HomePage = () => {
 		limit: ITEMS_COUNT,
 		offset: (currentPage - MIN_PAGE) * ITEMS_COUNT
   })
-
-  const { pages: pageCount, currentPage: apicurrentPage, data: posts } = data || {};
 
   return (
     <div className={s.page}>
@@ -46,12 +44,12 @@ export const HomePage = () => {
           </nav>
 
           <div className={s.actions}>
-            <button className={s.ghostButton} type="button">
+            <NavLink className={s.ghostButton} to="./sign-in">
               Sign in
-            </button>
-            <button className={s.primaryButton} type="button">
+            </NavLink>
+            <NavLink className={s.primaryButton} to ="./sing-up">
               Register
-            </button>
+            </NavLink>
           </div>
         </header>
         <div className={s.content}>
@@ -62,16 +60,17 @@ export const HomePage = () => {
             </div>
 
             <div className={s.grid}>
-							{isFetched ? posts?.map?.((el) => (
+							{isFetched ? data?.data.map?.((el) => (
                 <Card key={el.id} post={el}/>
                 )) : "Loading..."}
 
 						</div>
-            <Paginator
-              currentPage={apicurrentPage}
-              setCurrentPage={setCurrentPage}
-              pageCount={pageCount}
-              MIN_PAGE={MIN_PAGE}
+            <Paginator {...{
+              currentPage,
+              setCurrentPage,
+              pageCount: data?.pages,
+              MIN_PAGE
+            }}
             />
           </main>
         </div>
