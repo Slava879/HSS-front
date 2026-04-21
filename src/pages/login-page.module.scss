@@ -9,6 +9,10 @@
     background: #eff4ff;
     color: #1d4ed8;
     width: 100%;
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
 }
 
 .wrapper {
